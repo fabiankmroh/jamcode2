@@ -1,39 +1,20 @@
 #include <stdio.h>
-int array[1000000];
-int n;
-int reqn;
-int startn;
-int endn;
-int solven;
+int n, k, A[1000001]; 
 
-void solve(void){
-    int med = (startn+endn)/2;
-    if(startn > endn){ 
-        return;
+int solve(int s, int e) {
+    int m; 
+    while(e‐s>0){
+        m=(s+e)/2; 
+        if(A[m]<=k) s=m+1;  //초과되는 것을 찾으므로 같은 것도 탐색 scope에서 버린다
+        else e=m;
     }
-
-    if(reqn < array[med]){
-        endn = med;
-        solve();
-    }
-    else if(reqn >= array[med]){
-        startn = med + 1;
-        solve();
-    }
-
-
+    return e+1; 
 }
-
-int main(void){
-    scanf("%d", &n);
-    for(int i = 0; i < n; i++){
-        scanf("%d", &array[i]);
-    }
-    scanf("%d", &reqn);
-
-    endn = n;
-
-    solve();
-
+int main() {
+    scanf("%d",&n); 
+    for(int i=0; i<n; i++)
+        scanf("%d", A+i); 
+    scanf("%d",&k); 
+    printf("%d\n", solve(0, n)); 
     return 0;
 }
